@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>House Price Prediction</title>
+  </head>
+  <body>
+    <h1>House Price Prediction</h1>
+    <form action="/predict" method="post">
+      <label for="bedrooms">Bedrooms:</label>
+      <input type="text" id="bedrooms" name="bedrooms" /><br /><br />
+      <label for="bathrooms">Bathrooms:</label>
+      <input type="text" id="bathrooms" name="bathrooms" /><br /><br />
+      <label for="sqft_living">Sqft Living:</label>
+      <input type="text" id="sqft_living" name="sqft_living" /><br /><br />
+      <label for="floors">Floors:</label>
+      <input type="text" id="floors" name="floors" /><br /><br />
+      <label for="zipcode">Zipcode:</label>
+      <input type="text" id="zipcode" name="zipcode" /><br /><br />
+      <label for="age">Age:</label>
+      <input type="text" id="age" name="age" /><br /><br />
+      <label for="price_per_sqft">Price per Sqft:</label>
+      <input
+        type="text"
+        id="price_per_sqft"
+        name="price_per_sqft"
+      /><br /><br />
+      <label for="renovated">Renovated:</label>
+      <input type="text" id="renovated" name="renovated" /><br /><br />
+      <input type="submit" value="Predict" />
+    </form>
+    <h2>{{ prediction_text }}</h2>
+  </body>
+</html>
