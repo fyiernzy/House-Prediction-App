@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FormInput from "./FormInput";
+import axios from "axios";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
     bedrooms: 0,
     bathrooms: 0,
-    sqftLiving: 0,
+    sqft_living: 0,
     floors: 0,
     zipcode: 0,
     age: 0,
-    pricePerSqft: 0,
+    price_per_sqft: 0,
     renovated: 0,
   });
 
@@ -17,39 +18,45 @@ const PredictionForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: parseFloat(value) || 0,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => response.json())
-      .then((data) => setPrediction(data))
-      .catch((error) => console.error("Error:", error));
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/predict",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setPrediction(response.data.prediction);
+    } catch (error) {
+      console.error(error);
+      alert("There was an error processing your request. Please try again.");
+    }
   };
 
   const formProps = [
     { label: "Bedrooms", name: "bedrooms" },
     { label: "Bathrooms", name: "bathrooms" },
-    { label: "Sqft Living", name: "sqftLiving" },
+    { label: "Sqft Living", name: "sqft_living" },
     { label: "Floors", name: "floors" },
     { label: "Zipcode", name: "zipcode" },
     { label: "Age", name: "age" },
-    { label: "Price per Sqft", name: "pricePerSqft" },
+    { label: "Price per Sqft", name: "price_per_sqft" },
     { label: "Renovated", name: "renovated" },
   ];
 
   return (
-    <div className="border border-black-100 h-screen w-screen flex flex-col justify-center items-center m-0">
+    <div className="border border-black-100 flex flex-col justify-center items-center m-0">
       <h1 className="text-3xl my-8 font-bold m-0">House Price Prediction</h1>
       <form
         onSubmit={handleSubmit}
