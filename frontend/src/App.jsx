@@ -1,16 +1,21 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import PredictionForm from "./components/PredictionForm";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import FormPage from './pages/FormPage';
+import ResultPage from './pages/ResultPage';
 
-function App() {
-  const [count, setCount] = useState(0);
-
+const App = () => {
   return (
-    <>
-      <PredictionForm />
-    </>
+    <div className='App'>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<FormPage />} />
+        <Route path='/result' element={<ResultPage />} />
+      </Routes>
+    </div>
   );
-}
+};
 
 export default App;
+
+
