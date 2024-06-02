@@ -4,14 +4,14 @@ import axios from "axios";
 
 const PredictionForm = () => {
   const [formData, setFormData] = useState({
-    bedrooms: 0,
-    bathrooms: 0,
-    sqft_living: 0,
-    floors: 0,
-    zipcode: 0,
-    age: 0,
-    price_per_sqft: 0,
-    renovated: 0,
+    bedrooms: "",
+    bathrooms: "",
+    sqft_living: "",
+    floors: "",
+    zipcode: "",
+    age: "",
+    price_per_sqft: "",
+    renovated: "",
   });
 
   const [prediction, setPrediction] = useState(null);
@@ -45,14 +45,14 @@ const PredictionForm = () => {
   };
 
   const formProps = [
-    { label: "Bedrooms", name: "bedrooms" },
-    { label: "Bathrooms", name: "bathrooms" },
-    { label: "Sqft Living", name: "sqft_living" },
-    { label: "Floors", name: "floors" },
-    { label: "Zipcode", name: "zipcode" },
-    { label: "Age", name: "age" },
-    { label: "Price per Sqft", name: "price_per_sqft" },
-    { label: "Renovated", name: "renovated" },
+    { label: "Bedrooms", name: "bedrooms", placeholder: "Enter number of bedrooms" },
+    { label: "Bathrooms", name: "bathrooms", placeholder: "Enter number of bathrooms" },
+    { label: "Sqft Living", name: "sqft_living", placeholder: "Enter square footage of living area" },
+    { label: "Floors", name: "floors", placeholder: "Enter number of floors" },
+    { label: "Zipcode", name: "zipcode", placeholder: "Enter zipcode, e.g. 98019" },
+    { label: "Age", name: "age", placeholder: "Enter age of the house" },
+    { label: "Price per Sqft", name: "price_per_sqft", placeholder: "Enter price per square foot" },
+    { label: "Renovated", name: "renovated", placeholder: "Enter year of renovation (if any)" },
   ];
 
   return (
@@ -69,6 +69,7 @@ const PredictionForm = () => {
             name={prop.name}
             value={formData[prop.name]}
             onChange={handleChange}
+            placeholder={prop.placeholder} 
           />
         ))}
         <input
