@@ -1,0 +1,39 @@
+/* styles.css */
+
+.input-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.floating-label {
+  position: absolute;
+  top: 50%;
+  left: 0.5rem; /* Adjusted for padding */
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all 0.3s ease-out;
+  color: #9ca3af; /* Tailwind's gray-400 */
+  background-color: white; /* Background to overlap input border */
+  padding: 0 0.25rem; /* Adding padding to keep label within bounds */
+}
+
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label {
+  top: -0.2rem; /* Adjusted to stay within input bounds */
+  font-size: 0.75rem;
+  color: #6b7280; /* Tailwind's gray-500 */
+  background-color: white; /* Background to overlap input border */
+  padding: 0 0.25rem; /* Padding for label */
+}
+
+input {
+  width: 100%;
+  padding: 1rem; /* Increased padding for larger input field */
+  font-size: 1rem; /* Adjusted font size */
+}
+
+.error-message {
+  color: #ef4444; /* Tailwind's red-500 */
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
