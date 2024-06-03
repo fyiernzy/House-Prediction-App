@@ -15,6 +15,9 @@ const PredictionForm = () => {
     age: "",
     price_per_sqft: "",
     renovated: "",
+    grade: "",
+    view: "",
+    waterfront: "",  
   });
 
   const [errors, setErrors] = useState({});
@@ -117,6 +120,13 @@ const PredictionForm = () => {
       min: 1900,
       max: new Date().getFullYear(),
     },
+    {
+      label: "Grade",
+      name: "grade",
+      type: "number",
+      min: 1,
+      max: 13,
+    },
   ];
 
   const zipcodeOptions = [
@@ -126,8 +136,23 @@ const PredictionForm = () => {
     { value: "98101", label: "98101" },
   ];
 
+  const viewOptions = [
+    { value: "", label: "Select View" },
+    { value: "0", label: "0" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+  ];
+
+  const waterfrontOptions = [
+    { value: "", label: "Select Waterfront" },
+    { value: "1", label: "Yes" },
+    { value: "0", label: "No" },
+  ];
+
   return (
-    <div className="w-4/5 h-4/5 mx-auto flex justify-center items-center gap-10 m-8 shadow-[0_0_70px_10px_rgba(0,0,0,0.1)] rounded-2xl">
+    <div className="w-4/5 h-[95vh] mx-auto flex justify-center items-center gap-10 m-8 shadow-[0_0_70px_10px_rgba(0,0,0,0.1)] rounded-2xl">
       <div className="w-2/5 h-full">
         <img
           src={house}
@@ -157,6 +182,24 @@ const PredictionForm = () => {
             />
           ))}
           <FormDropdown
+            label="View"
+            name="view"
+            value={formData.view}
+            onChange={handleChange}
+            options={viewOptions}
+            error={errors.view}
+            className="col-span-2"
+          />
+          <FormDropdown
+            label="Waterfront"
+            name="waterfront"
+            value={formData.waterfront}
+            onChange={handleChange}
+            options={waterfrontOptions}
+            error={errors.waterfront}
+            className="col-span-2"
+          />
+          <FormDropdown
             label="Zipcode"
             name="zipcode"
             value={formData.zipcode}
@@ -172,7 +215,7 @@ const PredictionForm = () => {
           />
         </form>
         {prediction && (
-          <div className="mt-4">
+          <div>
             <h2 className="text-xl font-semibold">
               Predicted Price: ${prediction}
             </h2>

@@ -5,8 +5,15 @@ import joblib
 import os
 
 app = Flask(__name__)
-model_path = os.path.join(os.getcwd(), 'backend', 'gb.pkl')
+model_path = os.path.join(os.getcwd(), 'gb_best.pkl')
 model = joblib.load(model_path)
+print(type(model))
+
+# model, = joblib.load(model_path)
+# if isinstance(model, GradientBoostingRegressor):
+#     print("Model is an instance of GradientBoostingRegressor.")
+# else:
+#     print("Model is not an instance of GradientBoostingRegressor.")
 # Enable CORS for all routes
 CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -24,7 +31,10 @@ def predict():
             data['zipcode'],
             data['age'],
             data['price_per_sqft'],
-            data['renovated']
+            data['renovated'],
+            data['grade'],
+            data['waterfront'],
+            data['view']
         ]
         prediction = model.predict([features]).tolist()
         return jsonify(prediction=prediction)
