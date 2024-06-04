@@ -216,8 +216,17 @@ const PredictionForm = () => {
     { value: "1", label: "Yes" },
   ];
 
+  const viewOptions = [
+    { value: "", label: "Select View" },
+    { value: "0", label: "0" },
+    { value: "1", label: "1" },
+    { value: "2", label: "2" },
+    { value: "3", label: "3" },
+    { value: "4", label: "4" },
+  ];
+
   return (
-    <div className="w-4/5 h-full mx-auto flex justify-center items-center gap-10 m-8 my-10 shadow-[0_0_70px_10px_rgba(0,0,0,0.1)] rounded-2xl">
+    <div className="w-4/5 h-[95vh] mx-auto flex justify-center items-center gap-10 m-8 shadow-[0_0_70px_10px_rgba(0,0,0,0.1)] rounded-2xl">
       <div className="w-2/5 h-full">
         <img
           src={house}
@@ -246,6 +255,24 @@ const PredictionForm = () => {
               error={errors[prop.name]}
             />
           ))}
+          <FormDropdown
+            label="View"
+            name="view"
+            value={formData.view}
+            onChange={handleChange}
+            options={viewOptions}
+            error={errors.view}
+            className="col-span-2"
+          />
+          <FormDropdown
+            label="Waterfront"
+            name="waterfront"
+            value={formData.waterfront}
+            onChange={handleChange}
+            options={waterfrontOptions}
+            error={errors.waterfront}
+            className="col-span-2"
+          />
           <FormDropdown
             label="Zipcode"
             name="zipcode"

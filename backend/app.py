@@ -1,18 +1,14 @@
 import traceback
 from flask import Flask, request, jsonify
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 import joblib
 import os
 
 app = Flask(__name__)
-model_path = os.path.join(os.getcwd(), 'backend', 'gb_best.pkl')
+model_path = os.path.join(os.getcwd(), 'gb_best.pkl')
+model = joblib.load(model_path)
+print(type(model))
 
-# Load the model
-loaded_content = joblib.load(model_path)
-
-y_pred, model = loaded_content
-
-# Enable CORS for all routes
 CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
@@ -32,7 +28,11 @@ def predict():
             data['renovated'],
             data['grade'],
             data['view'],
-            data['waterfront']
+            data['waterfront'],
+            data['renovated'],
+            data['grade'],
+            data['waterfront'],
+            data['view']
         ]
         prediction = model.predict([features]).tolist()
         return jsonify(prediction=prediction)
