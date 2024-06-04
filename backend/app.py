@@ -5,8 +5,13 @@ import joblib
 import os
 
 app = Flask(__name__)
-model_path = os.path.join(os.getcwd(), 'backend', 'gb.pkl')
-model = joblib.load(model_path)
+model_path = os.path.join(os.getcwd(), 'backend', 'gb_best.pkl')
+
+# Load the model
+loaded_content = joblib.load(model_path)
+
+y_pred, model = loaded_content
+
 # Enable CORS for all routes
 CORS(app, resources={r"/predict": {"origins": "http://localhost:5173"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -24,7 +29,10 @@ def predict():
             data['zipcode'],
             data['age'],
             data['price_per_sqft'],
-            data['renovated']
+            data['renovated'],
+            data['grade'],
+            data['view'],
+            data['waterfront']
         ]
         prediction = model.predict([features]).tolist()
         return jsonify(prediction=prediction)
